@@ -13,7 +13,7 @@ const Navbar = ({location, getLocation,openDropdown,setopenDropdown}) => {
 
   const{cartItem} = useCart()
 
-  const [openNav , setOpneNav] = useState(false);
+  const [openNav , setOpenNav] = useState(false);
 
   const toggleDropdown = () =>{
     setopenDropdown(!openDropdown)
@@ -105,13 +105,13 @@ const Navbar = ({location, getLocation,openDropdown,setopenDropdown}) => {
           </div>
 
           {
-            openNav ? <HiMenuAlt3 onClick={()=>setOpneNav(false)} className="h-7 w-7 md:hidden" />
-            :<HiMenuAlt1 onClick={()=>setOpneNav(true)} className="h-7 w-7 md:hidden"/>
+            openNav ? <HiMenuAlt3 onClick={()=>setOpenNav(false)} className="h-7 w-7 md:hidden" />
+            :<HiMenuAlt1 onClick={()=>setOpenNav(true)} className="h-7 w-7 md:hidden"/>
           }
         </nav>
       </div>
 
-      <ResponsiveMenu setOpneNav={setOpneNav} openNav={openNav}/>
+      <ResponsiveMenu setOpenNav = {setOpenNav} openNav = {openNav}/>
     </div>
   );
 };

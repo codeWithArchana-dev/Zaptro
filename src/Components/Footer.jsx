@@ -21,16 +21,9 @@ const Footer = () => {
             <p className="text-sm leading-6 text-gray-400">
               Powering Your World with the Best in Electronics.
             </p>
-
-            <p className="text-sm mt-4 text-gray-400">
-              khora colony Noida Sector 62 , India
-            </p>
-
             <p className="text-sm text-gray-400">
               Email: archana10122004@gmail.com
             </p>
-
-            <p className="text-sm text-gray-400">Phone: (870)758-6243</p>
           </div>
 
           {/* Customer Service */}
