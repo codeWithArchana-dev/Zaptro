@@ -17,7 +17,7 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <DataProvider>
       <CartProvider>
-        <ClerkProvider publishablekey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+        <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
           <div className="overflow-x-hidden">
             <App />
             <ToastContainer

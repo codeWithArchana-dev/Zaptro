@@ -99,7 +99,6 @@ const Navbar = ({location, getLocation,openDropdown,setopenDropdown}) => {
               </button>
             </SignUpButton>
           </Show>
-
           <Show when="signed-in">
             <UserButton />
           </Show>

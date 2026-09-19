@@ -44,7 +44,7 @@ const Contact = () => {
               </h3>
               <p className="text-gray-300">
                 Have a question or need support? We're here to help you with
-                your electronics journey.
+                your electronics journey.   
               </p>
             </div>
             <div>
