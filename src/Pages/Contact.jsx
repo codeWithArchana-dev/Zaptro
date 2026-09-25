@@ -49,14 +49,7 @@ const Contact = () => {
             </div>
             <div>
               <p>
-                <strong>📍 Address:</strong> Khora Colony Noida sector 62 ,
-                India
-              </p>
-              <p>
                 <strong>📧 Email:</strong> archana10122004@gmail.com
-              </p>
-              <p>
-                <strong>📞 Phone:</strong> +91 8707586243
               </p>
             </div>
           </div>

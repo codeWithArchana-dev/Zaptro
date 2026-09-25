@@ -1,18 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useCart } from "../Context/CartContext";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { LuNotebookText } from "react-icons/lu";
 import { MdDeliveryDining } from "react-icons/md";
 import { GiShoppingBag } from "react-icons/gi";
-import { useUser } from "@clerk/react";
 import emptyCart from "../assets/empty-cart.png";
 import { useNavigate } from "react-router-dom";
 
-const Cart = ({ location, getLocation }) => {
+const Cart = () => {
   const { cartItem, updateQuantity, deleteItem } = useCart();
   // console.log(cartItem);
-  const { user } = useUser();
-  // console.log(user);
 
   const navigate = useNavigate();
 
@@ -21,55 +18,37 @@ const Cart = ({ location, getLocation }) => {
     0,
   );
 
-  const [formData, setFormData] = useState({
-    fullName: user?.fullName || "",
-    address: "",
-    state: "",
-    postcode: "",
-    country: "",
-    phone: "",
-  });
 
-  useEffect(() => {
-    if (location) {
-      setFormData((prev) => ({
-        ...prev,
-        address:
-          location.road ||
-          location.neighbourhood ||
-          location.suburb ||
-          location.county ||
-          location.city ||
-          "",
-        state: location.state || "",
-        postcode: location.postcode || "",
-        country: location.country || "",
-      }));
+  const [coupon, setCoupon] = useState("");
+  const [couponApplied, setCouponApplied] = useState(false);
+  const [couponMessage, setCouponMessage] = useState("");
+
+   const discount = couponApplied ? totalPrice * 0.1 : 0;
+
+  const grandTotal = totalPrice - discount + 5;
+
+ const handleApplyCoupon = () => {
+  if (coupon.trim().toUpperCase() === "SAVE10") {
+    setCouponApplied(true);
+    setCouponMessage("Coupon Applied Successfully");
+
+    localStorage.setItem("couponApplied", "true");
+  } else {
+    setCouponApplied(false);
+    setCouponMessage("Invalid Coupon code");
+
+    localStorage.removeItem("couponApplied");
+  }
+};
+
+  const handleCheckout = () => {
+    if (!couponApplied) {
+      alert("Please apply valid coupon code first");
+      return;
     }
 
-    if (user) {
-      setFormData((prev) => ({
-        ...prev,
-        fullName: user.fullName || "",
-      }));
-    }
-  }, [location, user]);
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    navigate("/DelivaryInfo");
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    console.log("Delivery Details:", formData);
-
-    alert("Form Submitted Successfully!");
-  };
-
   return (
     <div className="mt-10 max-w-6xl mx-auto mb-5">
       {cartItem?.length > 0 ? (
@@ -101,7 +80,6 @@ const Cart = ({ location, getLocation }) => {
                   </div>
                 </div>
 
-              
                 <div className="bg-red-500 rounded-md font-bold text-white flex gap-4 p-2 text-xl">
                   <button
                     onClick={() =>
@@ -135,207 +113,108 @@ const Cart = ({ location, getLocation }) => {
             ))}
           </div>
 
-          {/* DELIVERY + BILL DETAILS */}
+          {/* BILL DETAILS */}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
-            {/* DELIVERY FORM */}
-            <form onSubmit={handleSubmit}>
-              <div className="bg-gray-100 rounded-md p-7 mt-4 space-y-2">
-                <h1 className="text-gray-800 font-bold text-xl">
-                  Delivery Info
-                </h1>
 
-                {/* Full Name */}
-                <div className="flex flex-col space-y-1">
-                  <label>Full Name</label>
+          <div className="bg-white border border-gray-100 shadow-xl rounded-md p-7 mt-4 space-y-2 h-max">
+            <h1 className="text-gray-800 font-bold text-xl">Bill Details</h1>
 
-                  <input
-                    type="text"
-                    name="fullName"
-                    placeholder="Enter Your Name"
-                    className="rounded-md p-2"
-                    value={formData.fullName}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
+            {/* Total Items */}
+            <div className="flex items-center justify-between">
+              <h1 className="flex gap-1 items-center text-gray-700">
+                <LuNotebookText />
+                Total Items
+              </h1>
 
-                {/* Address */}
-                <div className="flex flex-col space-y-1">
-                  <label>Address</label>
+              <p>${totalPrice.toFixed(2)}</p>
+            </div>
 
-                  <input
-                    type="text"
-                    name="address"
-                    placeholder="Enter Your Address"
-                    className="rounded-md p-2"
-                    value={formData.address}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
+            {/* Delivery */}
+            <div className="flex items-center justify-between">
+              <h1 className="flex gap-1 items-center text-gray-700">
+                <MdDeliveryDining />
+                Delivery Charge
+              </h1>
 
-                {/* State + PostCode */}
-                <div className="flex w-full gap-5">
-                  <div className="flex flex-col space-y-1 w-full">
-                    <label>State</label>
+              <p className="text-red-500 font-semibold">FREE</p>
+            </div>
 
-                    <input
-                      type="text"
-                      name="state"
-                      placeholder="Enter Your State"
-                      className="p-2 rounded-md w-full"
-                      value={formData.state}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
+            {/* Handling */}
+            <div className="flex items-center justify-between">
+              <h1 className="flex gap-1 items-center text-gray-700">
+                <GiShoppingBag />
+                Handling Charge
+              </h1>
 
-                  <div className="flex flex-col space-y-1 w-full">
-                    <label>PostCode</label>
+              <p className="text-red-500 font-semibold">$5</p>
+            </div>
 
-                    <input
-                      type="text"
-                      name="postcode"
-                      placeholder="Enter Your PostCode"
-                      className="p-2 rounded-md w-full"
-                      value={formData.postcode}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                </div>
-
-                {/* Country + Phone */}
-                <div className="flex w-full gap-5">
-                  <div className="flex flex-col space-y-1 w-full">
-                    <label>Country</label>
-
-                    <input
-                      type="text"
-                      name="country"
-                      placeholder="Enter Your Country"
-                      className="p-2 rounded-md w-full"
-                      value={formData.country}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                  <div className="flex flex-col space-y-1 w-full">
-                    <label>Phone No</label>
-
-                    <input
-                      type="text"
-                      name="phone"
-                      placeholder="Enter Your Phone No"
-                      className="p-2 rounded-md w-full"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                </div>
-
-                <button
-                  type="submit"
-                  className="bg-red-500 text-white px-3 py-1 rounded-md mt-3 cursor-pointer"
-                >
-                  Submit
-                </button>
-
-                <div className="flex items-center justify-center w-full text-gray-700">
-                  -----------OR----------
-                </div>
-
-                <div className="flex justify-center">
-                  <button
-                    type="button"
-                    onClick={getLocation}
-                    className="bg-red-500 text-white px-3 py-2 rounded-md"
-                  >
-                    Detect Location
-                  </button>
-                </div>
-              </div>
-            </form>
-
-            {/* BILL DETAILS */}
-
-            <div className="bg-white border border-gray-100 shadow-xl rounded-md p-7 mt-4 space-y-2 h-max">
-              <h1 className="text-gray-800 font-bold text-xl">Bill Details</h1>
-
-              {/* Total Items */}
+            {/* Discount */}
+            {couponApplied && (
               <div className="flex items-center justify-between">
-                <h1 className="flex gap-1 items-center text-gray-700">
-                  <LuNotebookText />
-                  Total Items
+                <h1 className="text-gray-700 font-semibold">
+                  Discount (SAVE10)
                 </h1>
 
-                <p>${totalPrice}</p>
-              </div>
-
-              {/* Delivery */}
-              <div className="flex items-center justify-between">
-                <h1 className="flex gap-1 items-center text-gray-700">
-                  <MdDeliveryDining />
-                  Delivery Charge
-                </h1>
-
-                <p className="text-red-500 font-semibold">
-                  <span className="text-gray-600 line-through">$25</span> FREE
+                <p className="text-green-600 font-semibold">
+                  -${discount.toFixed(2)}
                 </p>
               </div>
+            )}
 
-              {/* Handling */}
-              <div className="flex items-center justify-between">
-                <h1 className="flex gap-1 items-center text-gray-700">
-                  <GiShoppingBag />
-                  Handling Charge
-                </h1>
+            <hr className="text-gray-200 mt-2" />
 
-                <p className="text-red-500 font-semibold">$5</p>
-              </div>
+            {/* Grand Total */}
+            <div className="flex items-center justify-between">
+              <h1 className="font-semibold text-lg">Grand Total</h1>
 
-              <hr className="text-gray-200 mt-2" />
-
-              {/* Grand Total */}
-              <div className="flex items-center justify-between">
-                <h1 className="font-semibold text-lg">Grand Total</h1>
-
-                <p className="font-semibold text-lg">${totalPrice + 5}</p>
-              </div>
-
-              {/* Promo */}
-              <div>
-                <h1 className="text-gray-700 mb-3 mt-7 font-semibold">
-                  Apply Promo Code
-                </h1>
-
-                <div className="flex gap-3">
-                  <input
-                    type="text"
-                    placeholder="Enter code"
-                    className="rounded-md w-full p-2"
-                  />
-
-                  <button
-                    type="button"
-                    className="bg-white text-black border border-gray-200 px-4 py-1 rounded-md"
-                  >
-                    Apply
-                  </button>
-                </div>
-              </div>
-
-              {/* Checkout */}
-              <button
-                type="button"
-                className="bg-red-500 text-white px-3 py-2 mt-3 rounded-md cursor-pointer w-full"
-              >
-                Proceed to Checkout
-              </button>
+              <p className="font-semibold text-lg">${grandTotal.toFixed(2)}</p>
             </div>
+
+            {/* Promo */}
+            <div>
+              <h1 className="text-gray-700 mb-3 mt-7 font-semibold">
+                Apply Promo Code
+              </h1>
+
+              <div className="flex gap-3">
+                <input
+                  type="text"
+                  placeholder="Enter code"
+                  value={coupon}
+                  onChange={(e) => setCoupon(e.target.value)}
+                  className="rounded-md w-full p-2"
+                  
+                />
+
+                <button
+                  type="button"
+                  onClick={handleApplyCoupon}
+                  className="bg-red-500 text-white px-4 py-1 rounded-md"
+                >
+                  Apply
+                </button>
+              </div>
+
+              {couponMessage && (
+                <p
+                  className={`text-sm mt-2 ${
+                    couponApplied ? "text-green-600" : "text-red-500"
+                  }`}
+                >
+                  {couponMessage}
+                </p>
+              )}
+            </div>
+
+            {/* Checkout */}
+            <button
+              type="button"
+              onClick={handleCheckout}
+              className="bg-red-500 text-white px-3 py-2 mt-3 rounded-md cursor-pointer w-full"
+            >
+              Proceed to Checkout
+            </button>
           </div>
         </div>
       ) : (

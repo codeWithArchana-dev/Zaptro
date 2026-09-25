@@ -2,15 +2,7 @@ import React, { useState } from "react";
 import { FaGithub, FaLinkedin, FaInstagram, FaGlobe } from "react-icons/fa";
 
 const Footer = () => {
-  const [suscribed, setSuscribed] = useState(false);
-  const [email, setEmail] = useState("");
-
-  const handleSuscribe = () => {
-    if (email.trim() !== "") {
-      setSuscribed(true);
-    }
-  };
-
+ 
   return (
     <footer className="bg-[#0f172a] text-gray-300">
       <div className="max-w-7xl mx-auto px-6 py-12">
@@ -95,28 +87,6 @@ const Footer = () => {
             <p className="text-sm text-gray-400 mb-5">
               Subscribe to get special offers, free giveaways, and more.
             </p>
-
-            <div className="flex flex-col sm:flex-row gap-2">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Your email address"
-                className="w-full bg-white text-gray-800 px-3 py-2
-                 rounded-md outline-none"
-              />
-
-              <button
-                onClick={handleSuscribe}
-                className={`text-white px-4 py-2 rounded-md transition ${
-                  suscribed
-                    ? "bg-green-500 hover:bg-green-600"
-                    : "bg-red-500 hover:bg-red-600"
-                }`}
-              >
-                {suscribed ? "Subscribed" : "Subscribe"}
-              </button>
-            </div>
           </div>
         </div>
       </div>

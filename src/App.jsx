@@ -10,6 +10,9 @@ import axios from "axios";
 import Footer from "./Components/Footer";
 import SingleProduct from "./Pages/SingleProduct";
 import CategoryProduct from "./Pages/CategoryProduct";
+import DelivaryInfo from "./Pages/DelivaryInfo";
+import Payment from "./Pages/Payment";
+import OrderSuccess from "./Pages/OrderSuccess";
 
 const App = () => {
   const [location, setLocation] = useState();
@@ -68,6 +71,9 @@ const App = () => {
             element={<Cart location={location} getLocation={getLocation} />}
           ></Route>
           <Route path="/contact" element={<Contact />}></Route>
+           <Route path="/DelivaryInfo" element={<DelivaryInfo location={location} getLocation={getLocation}/>}></Route>
+           <Route path="/Payment" element={<Payment />}></Route>
+            <Route path="/OrderSuccess" element={<OrderSuccess />}></Route>
         </Routes>
         <Footer />
       </BrowserRouter>
