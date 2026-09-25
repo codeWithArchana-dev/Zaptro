@@ -3,39 +3,87 @@
 
 Zaptro is a modern and responsive e-commerce website built using React.js. It provides a smooth shopping experience with product browsing, filtering, cart management, user authentication, contact form, and responsive design.
 
-## 🚀 Features
+🚀 Live Demo
+🔗 Live Website: https://zaptro-eta.vercel.app/
 
-* 🏠 Modern and responsive homepage
-* 🛍️ Product listing and product details
-* 🔍 Product search and filtering
-* 📂 Category-wise products
-* 🛒 Add to cart functionality
-* ➕ Increase/decrease product quantity
-* 🗑️ Remove products from cart
-* 💰 Automatic cart total calculation
-* 📍 Delivery information form
-* 📌 Detect user location
-* 👤 User authentication with Clerk
-* 📧 Contact form with EmailJS
-* 🔔 User notifications with React Toastify
-* 📱 Fully responsive design
-* 🎨 Modern UI using Tailwind CSS
+ 📂 Source Code 
+🔗 GitHub: https://github.com/codeWithArchana-dev/Zaptro
 
-## 🛠️ Technologies Used
+ 🚀 Features
 
-* **React.js**
-* **JavaScript**
-* **HTML5**
-* **CSS3**
-* **Tailwind CSS**
-* **React Router**
-* **React Icons**
-* **React Toastify**
-* **EmailJS**
-* **Clerk Authentication**
-* **Vite**
+ 🏠 Home & Products
+- Modern responsive homepage
+- Product listing
+- Product details page
+- Category-based product filtering
+- Dynamic product data using API
+- Responsive design for desktop, tablet, and mobile
 
-## 📦 Installation
+ 🛍️ Shopping Cart
+- Add products to cart
+- Increase/decrease product quantity
+- Remove products from cart
+- Dynamic subtotal calculation
+- Handling charges
+- Grand total calculation
+
+ 🎟️ Coupon System
+- Coupon code support
+- `SAVE10` discount coupon
+- Automatic 10% discount calculation
+- Invalid coupon validation
+- Dynamic bill calculation after applying coupon
+
+ 📦 Delivery Information
+- Customer name
+- Address
+- State
+- Postcode
+- Country
+- Phone number validation
+- Detect current location
+- Auto-fill location details using reverse geocoding
+- Reset form functionality
+- Logged-in user information support
+
+💳 Dummy Payment System
+- Frontend-only dummy payment flow
+- UPI payment option
+- Card payment option
+- Cash on Delivery option
+- UPI ID validation
+- Card number validation
+- Card holder name validation
+- Expiry date validation
+- CVV validation
+- Dynamic payment amount
+
+This is a demo payment system. No real money transaction is processed.
+
+ ✅ Order Confirmation
+- Order success page
+- Unique order ID generation
+- Payment status
+- Order confirmation status
+- Order ID stored using browser localStorage
+- Continue Shopping option
+
+
+ 🛠️ Technologies Used
+
+* React.js
+* JavaScript
+* HTML5
+* CSS3
+* Tailwind CSS
+* React Router
+* React Icons
+* React Toastify
+* EmailJS**
+* Clerk Authentication
+* Vite
+
+ 📦 Installation
 
 Clone the repository:
 
@@ -80,32 +128,7 @@ Zaptro/
 └── vite.config.js
 ```
 
-## 🔐 Environment Variables
-
-Create a `.env` file in the root directory and add your required environment variables.
-
-Example:
-
-```env
-VITE_CLERK_PUBLISHABLE_KEY=your_key_here
-VITE_EMAILJS_SERVICE_ID=your_service_id
-VITE_EMAILJS_TEMPLATE_ID=your_template_id
-VITE_EMAILJS_PUBLIC_KEY=your_public_key
-```
-
-> Never commit your `.env` file or secret API keys to GitHub.
-
-## 🎯 Purpose
+🎯 Purpose
 
 Zaptro was created to practice and demonstrate frontend development skills using React.js, including component-based architecture, state management, routing, authentication, API integration, form handling, notifications, and responsive design.
 
-## 👩‍💻 Author
-
-**Archana Vishwakarma**
-
-GitHub:
-https://github.com/codeWithArchana-dev
-
----
-
-⭐ If you like this project, consider giving it a star!
