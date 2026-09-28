@@ -63,6 +63,13 @@ const Footer = () => {
               </a>
 
               <a
+                href="https://instagram.com/itz_archu1012"
+                className="text-gray-400 hover:text-white transition"
+              >
+                <FaInstagram size={20} />
+              </a>
+
+              <a
                 href="https://archana-vishwakarma-portfolio.vercel.app/"
                 className="text-gray-400 hover:text-white transition"
               >
